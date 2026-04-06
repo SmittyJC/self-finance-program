@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Register</h2>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+<ul class="flash-messages">
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+  {% endif %}
+{% endwith %}
+
+<form method="POST">
+
+    <label>Username</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+
+<br>
+
+<div>
+    <p>Already have an account?</p>
+
+    <a href="{{ url_for('login') }}">
+        <button type="button">Back to Login</button>
+    </a>
+
+    <a href="{{ url_for('home') }}">
+        <button type="button">Back Home</button>
+    </a>
+</div>
+
+{% endblock %}

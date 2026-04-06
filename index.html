@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome!</h2>
+<p>This is your first Flask webpage.</p>
+
+<p><a href="{{ url_for('register') }}">Register</a></p>
+<p><a href="{{ url_for('login') }}">Login</a></p>
+{% endblock %}

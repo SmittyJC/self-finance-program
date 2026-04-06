@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+<ul class="flash-messages">
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+  {% endif %}
+{% endwith %}
+
+<p>Welcome {{ user }}!</p>
+
+<br>
+
+<div>
+    <a href="{{ url_for('add_transaction') }}">
+        <button type="button">Add Transaction</button>
+    </a>
+
+    <a href="{{ url_for('view_transactions') }}">
+        <button type="button">View Transactions</button>
+    </a>
+
+    <a href="{{ url_for('monthly_summary') }}">
+        <button type="button">Monthly Summary</button>
+    </a>
+
+    <a href="{{ url_for('logout') }}">
+        <button type="button">Logout</button>
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Monthly Summary{% endblock %}
+
+{% block content %}
+<h2>Monthly Summary</h2>
+
+<form method="GET" action="{{ url_for('monthly_summary') }}">
+    <label for="month">Select Month:</label><br>
+    <input type="month" id="month" name="month" value="{{ selected_month }}"><br><br>
+    <button type="submit">View Summary</button>
+    <a href="{{ url_for('dashboard') }}">
+        <button type="button">Back to Dashboard</button>
+    </a>
+</form>
+
+<hr>
+
+<h3>Totals by Transaction Type</h3>
+{% if type_totals %}
+<ul>
+    {% for row in type_totals %}
+    <li>{{ row["type"] | capitalize }}: ${{ "%.2f"|format(row["total"]) }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No transactions found for this month.</p>
+{% endif %}
+
+<hr>
+
+<h3>Totals by Category</h3>
+{% if category_totals %}
+<ul>
+    {% for row in category_totals %}
+    <li>{{ row["category"] }}: ${{ "%.2f"|format(row["total"]) }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No category totals found for this month.</p>
+{% endif %}
+
+{% endblock %}

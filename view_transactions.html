@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}View Transactions{% endblock %}
+
+{% block content %}
+
+<h2>Your Transactions</h2>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+<ul class="flash-messages">
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+  {% endif %}
+{% endwith %}
+
+{% if transactions and transactions|length > 0 %}
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction["date"] }}</td>
+            <td>${{ "%.2f"|format(transaction["amount"]) }}</td>
+            <td>{{ transaction["description"] }}</td>
+            <td>{{ transaction["type"] | capitalize }}</td>
+            <td>{{ transaction["category"] if transaction["category"] else "Uncategorized" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No transactions found.</p>
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('dashboard') }}">
+    <button type="button">Back to Dashboard</button>
+</a>
+
+{% endblock %}
